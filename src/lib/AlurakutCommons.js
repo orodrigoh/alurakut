@@ -80,7 +80,7 @@ AlurakutMenu.Wrapper = styled.header`
     }
     .boxLink {
       font-size: 18px;
-      color: #2E7BB4;
+      color: var(--colorPrimary);
       -webkit-text-decoration: none;
       text-decoration: none;
       font-weight: 800;
@@ -222,7 +222,7 @@ export function AlurakutProfileSidebarMenuDefault() {
 AlurakutProfileSidebarMenuDefault.Wrapper = styled.div`
   a {
     font-size: 12px;
-    color: #2E7BB4;
+    color: var(--colorPrimary);
     margin-bottom: 16px;
     display: flex;
     align-items: center;

@@ -21,9 +21,9 @@ const Title = styled.h1`
 export default function Home() {
   const usuarioAleatorio = 'orodrigoh';
   const pessoasFavoritas = [
-    'juunegreiros',
+    'maateusilva',
     'omariosouto',
-    'peas',
+    'ErickWendel',
     'rafaballerini',
     'marcobrunodev',
     'felipefialho'
