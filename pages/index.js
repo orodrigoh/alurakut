@@ -1,8 +1,11 @@
-import styled from 'styled-components'
-import MainGrid from '../src/components/MainGrid'
-import Box from '../src/components/Box'
+import {Followers} from '../src/utils/Followers';
+import styled from 'styled-components';
+import MainGrid from '../src/components/MainGrid';
+import Box from '../src/components/Box';
 import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
+import { useEffect, useState } from 'react';
+
 
 function ProfileSidebar(propriedades) {
 
@@ -18,16 +21,15 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary};
 `
 
+
 export default function Home() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    Followers([users, setUsers])  
+  }, [])
+
   const usuarioAleatorio = 'orodrigoh';
-  const pessoasFavoritas = [
-    'maateusilva',
-    'omariosouto',
-    'ErickWendel',
-    'rafaballerini',
-    'marcobrunodev',
-    'felipefialho'
-  ]
 
   return (
     <>
@@ -58,16 +60,16 @@ export default function Home() {
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
-              Pessoas da comunidade ({pessoasFavoritas.length})
+              Pessoas da comunidade ({users.length})
             </h2>
 
             <ul>
-              {pessoasFavoritas.map((itemAtual) => {
+              {users.slice(1,7).map(({login, id}) => {
                 return (
-                  <li>
-                    <a href={`/users/${itemAtual}`} key={itemAtual}>
-                      <img src={`https://github.com/${itemAtual}.png`} />
-                      <span>{itemAtual}</span>
+                  <li key={id}>
+                    <a href={`/users/${login}`} key={login}>
+                      <img src={`https://github.com/${login}.png`} />
+                      <span>{login}</span>
                     </a>
                   </li>
                 )
