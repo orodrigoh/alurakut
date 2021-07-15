@@ -27,17 +27,38 @@ function ProfileSidebar(propriedades) {
   )
 }
 
-const Title = styled.h1`
-  font-size: 50px;
-  color: ${({ theme }) => theme.colors.primary};
-`
+function ProfileRelationsBox(propriedades) {
+
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+        {propriedades.title} ({propriedades.items.length})
+      </h2>
+      <ul>
+        {propriedades.items.slice(1,7).map(({login, id}) => {
+          return (
+            <li key={id}>
+              <a href={`/seguidores/${login}`} key={login}>
+                <img src={`https://github.com/${login}.png`} />
+                <span>{login}</span>
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </ProfileRelationsBoxWrapper>
+  )
+}
 
 
 export default function Home() {
   const [users, setUsers] = useState([]);
+  const [seguidores, setSeguidores] = useState([]);
 
   useEffect(() => {
-    Followers([users, setUsers])  
+    Followers([users, setUsers])
+    Followers([seguidores, setSeguidores])  
+
   }, [])
 
   const usuarioAleatorio = 'orodrigoh';
@@ -80,9 +101,6 @@ export default function Home() {
                 e.preventDefault();
                 const dadosDoForm = new FormData(e.target);
 
-                console.log('Campo: ', dadosDoForm.get('title'));
-                console.log('Campo: ', dadosDoForm.get('image'));
-
                 const comunidade = {
                   id: new Date().toISOString(),
                   title: dadosDoForm.get('title'),
@@ -115,6 +133,8 @@ export default function Home() {
 
         </div>
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
+        <ProfileRelationsBox title="Seguidores" items={seguidores} />
+
         <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Comunidades ({comunidades.length})
