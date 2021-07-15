@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 const Box = styled.div`
-  background: var(--backgroundTertiary);
+  background: ${props => `${props.theme.colors.backgroundTertiary}`};
   border-radius: 8px;
   padding: 16px;
   /* CSS Pré-Pronto */
   margin-bottom: 10px;
   .boxLink {
     font-size: 14px;
-    color: var(--colorPrimary);
+    color: ${props => `${props.theme.colors.colorPrimary}`};
     text-decoration: none;
     font-weight: 800;
   }
@@ -16,6 +16,7 @@ const Box = styled.div`
     font-size: 32px;
     font-weight: 400;
     margin-bottom: 20px;
+    color: ${props => `${props.theme.colors.textSecondaryColor}`};
   }
   .subTitle {
     font-size: 18px;
@@ -26,7 +27,7 @@ const Box = styled.div`
     margin-bottom: 20px;
     font-size: 16px;
     font-weight: 700;
-    color: #333333;
+    color: ${props => `${props.theme.colors.textSecondaryColor}`};
     margin-bottom: 20px;
   }
   hr {
@@ -37,23 +38,23 @@ const Box = styled.div`
   }
   input {
     width: 100%;
-    background-color: #F4F4F4;
-    color: #333333;
+    background-color: ${props => `${props.theme.colors.backgroundPrimary}`};
+    color: ${props => `${props.theme.colors.textPrimaryColor}`};
     border: 0;
     padding: 14px 16px;
     margin-bottom: 14px;
     border-radius: 10000px;
     ::placeholder {
-      color: #333333;
+      color:${props => `${props.theme.colors.textPrimaryColor}`};
       opacity: 1;
     }
   }
   button {
     border: 0;
     padding: 8px 12px;
-    color: var(--backgroundTertiary);
+    color: ${props => `${props.theme.colors.buttonText}`};
     border-radius: 10000px;
-    background-color: #6F92BB;
+    background-color: ${props => `${props.theme.colors.button}`};
   }
 `; 
 

@@ -1,0 +1,20 @@
+export default {
+  title: 'light',
+  colors: {
+    backgroundPrimary: '#D9E6F6',
+    backgroundSecondary: '#2E7BB4',
+    backgroundTertiary: '#FFFFFF',
+    backgroundQuarternary: '#BBCDE8',
+    colorPrimary: '#2E7BB4',
+    colorSecondary: '#388BB0',
+    colorTertiary: '#2F4A71',
+    colorQuarternary: '#D81D99',
+    textPrimaryColor: '#333333',
+    textSecondaryColor: '#000',
+    textTertiaryColor: '#5A5A5A',
+    textQuarternaryColor: '#C5C6CA',
+    input: '#5579A1',
+    button: '#6F92BB',
+    buttonText:'#FFFFFF',
+  },
+}
