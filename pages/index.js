@@ -1,10 +1,12 @@
 import {Followers} from '../src/utils/Followers';
+import {Community} from '../src/utils/Community';
+
 import styled from 'styled-components';
 import MainGrid from '../src/components/MainGrid';
 import Box from '../src/components/Box';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 
 function ProfileSidebar(propriedades) {
@@ -54,20 +56,47 @@ function ProfileRelationsBox(propriedades) {
 export default function Home() {
   const [users, setUsers] = useState([]);
   const [seguidores, setSeguidores] = useState([]);
+  const [comunidades, setComunidades] = useState([]);
+  const textInput1 = useRef();
+  const textInput2 = useRef();
+
 
   useEffect(() => {
-    Followers([users, setUsers])
-    Followers([seguidores, setSeguidores])  
+    Followers([users, setUsers]);
+    Followers([seguidores, setSeguidores])  ;
+    Community([setComunidades]);
 
   }, [])
 
   const usuarioAleatorio = 'orodrigoh';
 
-  const [comunidades, setComunidades] = useState([{
-    id: '12802378123789378912789789123896123', 
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
-  }]);
+  function handlePost(e) {
+    e.preventDefault();
+    const dadosDoForm = new FormData(e.target);
+
+    const comunidade = {
+      title: dadosDoForm.get('title'),
+      imageUrl: dadosDoForm.get('image'),
+      creatorSlug: usuarioAleatorio,
+    }
+
+      fetch('api/comunidades', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(comunidade),
+    })
+    const newCom = [comunidade,...comunidades];
+    setComunidades(newCom)
+
+    textInput1.current.value = '';
+    textInput2.current.value = '';
+
+    textInput1.current.focus();
+   
+  }
+
 
   return (
     <>
@@ -97,28 +126,19 @@ export default function Home() {
 
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
-            <form onSubmit={function handleCriaComunidade(e) {
-                e.preventDefault();
-                const dadosDoForm = new FormData(e.target);
-
-                const comunidade = {
-                  id: new Date().toISOString(),
-                  title: dadosDoForm.get('title'),
-                  image: dadosDoForm.get('image'),
-                }
-                const comunidadesAtualizadas = [...comunidades, comunidade];
-                setComunidades(comunidadesAtualizadas)
-            }}>
+            <form onSubmit={handlePost}>
               <div>
                 <input
                   placeholder="Qual vai ser o nome da sua comunidade?"
                   name="title"
                   aria-label="Qual vai ser o nome da sua comunidade?"
                   type="text"
+                  ref={textInput1}
                   />
               </div>
               <div>
                 <input
+                  ref={textInput2}
                   placeholder="Coloque uma URL para usarmos de capa"
                   name="image"
                   aria-label="Coloque uma URL para usarmos de capa"
@@ -144,7 +164,7 @@ export default function Home() {
                 return (
                   <li key={itemAtual.id}>
                     <a href={`/users/${itemAtual.title}`}>
-                      <img src={itemAtual.image} />
+                      <img src={itemAtual.imageUrl} />
                       <span>{itemAtual.title}</span>
                     </a>
                   </li>
