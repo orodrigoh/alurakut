@@ -1,56 +1,13 @@
-import {Followers} from '../src/utils/Followers';
+import ProfileRelationsBox from '../src/components/ProfileRelationsBox';
 import {Community} from '../src/utils/Community';
+import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
+import {Followers} from '../src/utils/Followers';
 
-import styled from 'styled-components';
 import MainGrid from '../src/components/MainGrid';
 import Box from '../src/components/Box';
-import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
-import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
+import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 import { useEffect, useState, useRef } from 'react';
-
-
-function ProfileSidebar(propriedades) {
-
-  return (
-
-    <Box as="aside">
-      <img src={`https://github.com/${propriedades.githubUser}.png`} style={{ borderRadius: '8px' }} />
-      <hr />
-
-      <p>
-        <a className="boxLink" href={`https://github.com/${propriedades.githubUser}`}>
-          @{propriedades.githubUser}
-        </a>
-      </p>
-      <hr />
-
-      <AlurakutProfileSidebarMenuDefault />
-    </Box>
-  )
-}
-
-function ProfileRelationsBox(propriedades) {
-
-  return (
-    <ProfileRelationsBoxWrapper>
-      <h2 className="smallTitle">
-        {propriedades.title} ({propriedades.items.length})
-      </h2>
-      <ul>
-        {propriedades.items.slice(1,7).map(({login, id}) => {
-          return (
-            <li key={id}>
-              <a href={`/seguidores/${login}`} key={login}>
-                <img src={`https://github.com/${login}.png`} />
-                <span>{login}</span>
-              </a>
-            </li>
-          )
-        })}
-      </ul>
-    </ProfileRelationsBoxWrapper>
-  )
-}
+import ProfileSidebar from '../src/components/ProfileSidebar';
 
 
 export default function Home() {
